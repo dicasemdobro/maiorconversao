@@ -138,7 +138,7 @@ export default function Home() {
                 CONCORRA A UM iPHONE 17e
               </p>
               <p style={{ fontSize: '0.75rem', color: 'rgba(255,215,0,0.65)', fontWeight: 500, lineHeight: 1.3 }}>
-                Exclusivo para membros do Grupo VIP que comprarem no pré-lançamento
+                Exclusivo para membros do Grupo VIP
               </p>
             </div>
           </div>
@@ -188,7 +188,8 @@ export default function Home() {
           </div>
 
           <div data-reveal style={R}>
-            {btn('sorteio', 'QUERO CONCORRER AO iPHONE')}\n          </div>
+            {btn('sorteio', 'QUERO CONCORRER AO iPHONE')}
+          </div>
         </div>
       </section>
 
