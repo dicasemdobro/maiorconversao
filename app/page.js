@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 
-const WPP = 'https://chat.whatsapp.com/IzPtz8dqp5IBlFDjaqG4NT?mode=gi_t'
+const WPP = '/obrigado'
 
 function fbq(event, params) {
   if (typeof window !== 'undefined' && window.fbq) window.fbq('track', event, params || {})
@@ -24,8 +24,6 @@ function CTAButton({ label, text = 'ENTRAR NO GRUPO VIP — GRÁTIS' }) {
   return (
     <a
       href={WPP}
-      target="_blank"
-      rel="noopener noreferrer"
       onClick={click}
       style={{
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
