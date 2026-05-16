@@ -103,61 +103,65 @@ export default function Home() {
 
         <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 500, textAlign: 'center' }}>
 
-          {/* Logo */}
-          <img src="/images/logo.webp" alt="Dicas em Dobro" style={{ width: 76, height: 76, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 5, boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: 20 }} />
-
-          {/* Urgência — primeira coisa que lê */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(227,62,51,0.15)', border: '1px solid rgba(227,62,51,0.4)', borderRadius: 100, padding: '6px 14px', marginBottom: 22, animation: 'urgency-blink 2s ease infinite' }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E33E33', animation: 'urgency-blink 1s ease infinite' }} />
-            <span style={{ color: '#ff7a72', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>🔥 Vagas limitadas — grupo VIP</span>
+          {/* Badge urgência — sem logo acima, direto ao ponto */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(227,62,51,0.15)', border: '1px solid rgba(227,62,51,0.4)', borderRadius: 100, padding: '6px 16px', marginBottom: 18, animation: 'urgency-blink 2s ease infinite', whiteSpace: 'nowrap' }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#E33E33', flexShrink: 0 }} />
+            <span style={{ color: '#ff7a72', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>🔥 Vagas limitadas — Grupo VIP</span>
           </div>
 
-          {/* Headline — benefício CLARO e imediato */}
-          <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.8rem, 12vw, 4.5rem)', lineHeight: 1.0, letterSpacing: '0.02em', color: 'white', marginBottom: 14 }}>
+          {/* Headline menor — deixa a foto subir */}
+          <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.2rem, 10vw, 3.6rem)', lineHeight: 1.0, letterSpacing: '0.02em', color: 'white', marginBottom: 10 }}>
             COMPRE 1 PRATO<br/>
             <span style={{ color: '#FFD700' }}>GANHE OUTRO</span><br/>
             DE GRAÇA
           </h1>
 
-          {/* Sub — específico, concreto, crível */}
-          <p style={{ fontSize: 'clamp(0.95rem, 3.5vw, 1.05rem)', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, marginBottom: 10, maxWidth: 400, margin: '0 auto 10px' }}>
+          {/* Sub */}
+          <p style={{ fontSize: 'clamp(0.88rem, 3.2vw, 0.98rem)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.55, marginBottom: 16, maxWidth: 380, margin: '0 auto 16px' }}>
             Mais de <strong style={{ color: 'white' }}>60 restaurantes</strong> em Rio Preto. Você paga um prato e leva dois — toda vez que for.
           </p>
 
-          {/* iPhone destaque — bloco visual forte */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.06))',
-            border: '1.5px solid rgba(255,215,0,0.4)',
-            borderRadius: 16, padding: '14px 18px',
-            marginBottom: 28, display: 'flex', alignItems: 'center', gap: 14,
-            boxShadow: '0 0 32px rgba(255,215,0,0.08)',
+          {/* iPhone — botão âncora para a seção do sorteio */}
+          <a href="#sorteio" style={{
+            display: 'flex', alignItems: 'center', gap: 14, textDecoration: 'none',
+            background: 'linear-gradient(135deg, rgba(255,215,0,0.13), rgba(255,215,0,0.05))',
+            border: '1.5px solid rgba(255,215,0,0.45)',
+            borderRadius: 14, padding: '12px 16px',
+            marginBottom: 20,
+            boxShadow: '0 0 28px rgba(255,215,0,0.07)',
+            transition: 'border-color 0.2s, background 0.2s',
           }}>
-            <span style={{ fontSize: '2.2rem', flexShrink: 0 }}>🏆</span>
-            <div style={{ textAlign: 'left' }}>
-              <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1.1rem, 4.5vw, 1.4rem)', color: '#FFD700', letterSpacing: '0.04em', lineHeight: 1.1, marginBottom: 3 }}>
+            <span style={{ fontSize: '2rem', flexShrink: 0 }}>🏆</span>
+            <div style={{ textAlign: 'left', flex: 1 }}>
+              <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1rem, 4vw, 1.3rem)', color: '#FFD700', letterSpacing: '0.04em', lineHeight: 1.1, marginBottom: 2 }}>
                 CONCORRA A UM iPHONE 17e
               </p>
-              <p style={{ fontSize: '0.75rem', color: 'rgba(255,215,0,0.65)', fontWeight: 500, lineHeight: 1.3 }}>
+              <p style={{ fontSize: '0.72rem', color: 'rgba(255,215,0,0.6)', fontWeight: 500 }}>
                 Exclusivo para membros do Grupo VIP
               </p>
             </div>
-          </div>
+            <span style={{ color: 'rgba(255,215,0,0.4)', fontSize: '1rem', flexShrink: 0 }}>›</span>
+          </a>
 
-          {/* Hero image */}
-          <div style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 24, border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 20px 60px rgba(0,0,0,0.55)', position: 'relative' }}>
-            <img src="/images/hero.webp" alt="Experiências gastronômicas em Rio Preto" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 320 }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,18,32,0.7) 0%, transparent 50%)' }} />
-            {/* Social proof dentro da imagem */}
+          {/* CTA ANTES da foto — converte quem já está convencido */}
+          {btn('hero-top', 'ENTRAR NO GRUPO VIP GRÁTIS', 'clamp(1rem, 4vw, 1.1rem)', '17px 28px')}
+          <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.68rem', marginTop: 8, marginBottom: 18 }}>Gratuito · Sem spam · Saia quando quiser</p>
+
+          {/* Hero image — logo sobreposta no canto superior direito */}
+          <div style={{ borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 20px 60px rgba(0,0,0,0.55)', position: 'relative' }}>
+            <img src="/images/hero.webp" alt="Experiências gastronômicas em Rio Preto" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 340 }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,18,32,0.65) 0%, transparent 45%)' }} />
+            {/* Logo sobre a foto — canto superior direito */}
+            <div style={{ position: 'absolute', top: 12, right: 12 }}>
+              <img src="/images/logo.webp" alt="Dicas em Dobro" style={{ width: 52, height: 52, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 3, boxShadow: '0 4px 16px rgba(0,0,0,0.5)' }} />
+            </div>
+            {/* Social proof */}
             <div style={{ position: 'absolute', bottom: 14, left: 0, right: 0, textAlign: 'center' }}>
-              <span style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', borderRadius: 100, padding: '6px 14px', fontSize: '0.78rem', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>
+              <span style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)', borderRadius: 100, padding: '6px 14px', fontSize: '0.75rem', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>
                 700+ pessoas já estão no grupo VIP
               </span>
             </div>
           </div>
-
-          {/* CTA PRINCIPAL */}
-          {btn('hero', 'ENTRAR NO GRUPO VIP GRÁTIS', 'clamp(1rem, 4vw, 1.1rem)', '18px 28px')}
-          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.72rem', marginTop: 10 }}>Gratuito · Sem spam · Saia quando quiser</p>
 
         </div>
       </section>
