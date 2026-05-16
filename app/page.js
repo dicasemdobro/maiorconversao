@@ -19,31 +19,6 @@ function WppIcon({ size = 22 }) {
   )
 }
 
-function Countdown() {
-  const TOTAL = 15 * 60
-  const [secs, setSecs] = useState(TOTAL)
-  const ref = useRef(null)
-  useEffect(() => {
-    ref.current = setInterval(() => setSecs(p => p > 0 ? p - 1 : 0), 1000)
-    return () => clearInterval(ref.current)
-  }, [])
-  const m = String(Math.floor(secs / 60)).padStart(2, '0')
-  const s = String(secs % 60).padStart(2, '0')
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-      {[m, ':', s].map((v, i) => (
-        <span key={i} style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: v === ':' ? '1.6rem' : 'clamp(2rem, 8vw, 2.8rem)',
-          color: secs < 120 ? '#ff6b6b' : '#FFD700',
-          lineHeight: 1,
-          opacity: v === ':' ? 0.5 : 1,
-        }}>{v}</span>
-      ))}
-    </div>
-  )
-}
-
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
@@ -129,7 +104,7 @@ export default function Home() {
         <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 500, textAlign: 'center' }}>
 
           {/* Logo */}
-          <img src="/images/logo.png" alt="Dicas em Dobro" style={{ width: 76, height: 76, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 5, boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: 20 }} />
+          <img src="/images/logo.webp" alt="Dicas em Dobro" style={{ width: 76, height: 76, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 5, boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginBottom: 20 }} />
 
           {/* Urgência — primeira coisa que lê */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(227,62,51,0.15)', border: '1px solid rgba(227,62,51,0.4)', borderRadius: 100, padding: '6px 14px', marginBottom: 22, animation: 'urgency-blink 2s ease infinite' }}>
@@ -149,14 +124,28 @@ export default function Home() {
             Mais de <strong style={{ color: 'white' }}>60 restaurantes</strong> em Rio Preto. Você paga um prato e leva dois — toda vez que for.
           </p>
 
-          {/* iPhone teaser — bônus, não promessa */}
-          <p style={{ fontSize: '0.82rem', color: '#FFD700', fontWeight: 600, marginBottom: 28, opacity: 0.9 }}>
-            🏆 Membros VIP concorrem a um iPhone 17e
-          </p>
+          {/* iPhone destaque — bloco visual forte */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.06))',
+            border: '1.5px solid rgba(255,215,0,0.4)',
+            borderRadius: 16, padding: '14px 18px',
+            marginBottom: 28, display: 'flex', alignItems: 'center', gap: 14,
+            boxShadow: '0 0 32px rgba(255,215,0,0.08)',
+          }}>
+            <span style={{ fontSize: '2.2rem', flexShrink: 0 }}>🏆</span>
+            <div style={{ textAlign: 'left' }}>
+              <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1.1rem, 4.5vw, 1.4rem)', color: '#FFD700', letterSpacing: '0.04em', lineHeight: 1.1, marginBottom: 3 }}>
+                CONCORRA A UM iPHONE 17e
+              </p>
+              <p style={{ fontSize: '0.75rem', color: 'rgba(255,215,0,0.65)', fontWeight: 500, lineHeight: 1.3 }}>
+                Exclusivo para membros do Grupo VIP que comprarem no pré-lançamento
+              </p>
+            </div>
+          </div>
 
           {/* Hero image */}
           <div style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 24, border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 20px 60px rgba(0,0,0,0.55)', position: 'relative' }}>
-            <img src="/images/hero.jpg" alt="Experiências gastronômicas em Rio Preto" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 320 }} />
+            <img src="/images/hero.webp" alt="Experiências gastronômicas em Rio Preto" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 320 }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,18,32,0.7) 0%, transparent 50%)' }} />
             {/* Social proof dentro da imagem */}
             <div style={{ position: 'absolute', bottom: 14, left: 0, right: 0, textAlign: 'center' }}>
@@ -195,20 +184,11 @@ export default function Home() {
           {/* Imagem do iPhone */}
           <div data-reveal style={{ ...R, maxWidth: 380, margin: '0 auto 28px', position: 'relative' }}>
             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '90%', height: '60%', background: 'radial-gradient(ellipse, rgba(255,215,0,0.18) 0%, transparent 70%)', borderRadius: '50%', zIndex: 0 }} />
-            <img src="/images/iphone-sorteio.jpg" alt="iPhone 17e — Sorteio exclusivo Dicas em Dobro" style={{ width: '100%', borderRadius: 16, position: 'relative', zIndex: 1, filter: 'drop-shadow(0 16px 48px rgba(0,0,0,0.65))' }} loading="lazy" />
-          </div>
-
-          {/* Countdown */}
-          <div data-reveal style={{ ...R, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '20px', marginBottom: 24 }}>
-            <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 10, animation: 'urgency-blink 2s ease infinite' }}>
-              ⚠️ Vagas limitadas para o sorteio
-            </p>
-            <Countdown />
+            <img src="/images/iphone-sorteio.webp" alt="iPhone 17e — Sorteio exclusivo Dicas em Dobro" style={{ width: '100%', borderRadius: 16, position: 'relative', zIndex: 1, filter: 'drop-shadow(0 16px 48px rgba(0,0,0,0.65))' }} loading="lazy" />
           </div>
 
           <div data-reveal style={R}>
-            {btn('sorteio', 'QUERO CONCORRER AO iPHONE')}
-          </div>
+            {btn('sorteio', 'QUERO CONCORRER AO iPHONE')}\n          </div>
         </div>
       </section>
 
@@ -257,6 +237,25 @@ export default function Home() {
       </section>
 
 
+      {/* VIDEO — Rio Preto real, conecta desejo */}
+      <section style={{ padding: '0 0 56px', background: '#07182a' }}>
+        <div style={{ maxWidth: 500, margin: '0 auto', padding: '0 20px' }}>
+          <div data-reveal style={{ ...R, textAlign: 'center', marginBottom: 16 }}>
+            <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              Rio Preto tem muito a oferecer
+            </p>
+          </div>
+          <div data-reveal style={{ ...R, borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)', position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+            <iframe
+              src="https://player.vimeo.com/video/1190999200?autoplay=1&loop=1&muted=1&background=1"
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
 
       {/* ══════════════════════════════════════════
           COMO FUNCIONA — 3 passos, zero ruído
@@ -282,7 +281,18 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div data-reveal style={{ ...R, marginTop: 36 }}>
+
+          {/* App image — prova que existe */}
+          <div data-reveal style={{ ...R, marginTop: 28, maxWidth: 280, margin: '28px auto 0' }}>
+            <img
+              src="/images/app.webp"
+              alt="App Dicas em Dobro no celular"
+              loading="lazy"
+              style={{ width: '100%', borderRadius: 20, boxShadow: '0 16px 48px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.07)' }}
+            />
+          </div>
+
+          <div data-reveal style={{ ...R, marginTop: 28 }}>
             {btn('como-funciona')}
           </div>
         </div>
@@ -363,6 +373,18 @@ export default function Home() {
       </section>
 
 
+      {/* Banner final — identidade visual forte antes da decisão */}
+      <section style={{ padding: '0', background: '#07182a', overflow: 'hidden' }}>
+        <div data-reveal style={R}>
+          <img
+            src="/images/banner-final.webp"
+            alt="Dicas em Dobro — Os melhores restaurantes de Rio Preto"
+            loading="lazy"
+            style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 200 }}
+          />
+        </div>
+      </section>
+
 
       {/* ══════════════════════════════════════════
           CTA FINAL — o mais forte de todos
@@ -370,7 +392,7 @@ export default function Home() {
       <section style={{ padding: '72px 20px 96px', background: '#07182a', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '120vw', height: 500, background: 'radial-gradient(ellipse, rgba(37,211,102,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div data-reveal style={{ ...R, maxWidth: 500, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <img src="/images/logo.png" alt="Dicas em Dobro" style={{ width: 64, height: 64, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 4, marginBottom: 24, boxShadow: '0 8px 30px rgba(0,0,0,0.4)' }} />
+          <img src="/images/logo.webp" alt="Dicas em Dobro" style={{ width: 64, height: 64, objectFit: 'contain', background: 'white', borderRadius: '50%', padding: 4, marginBottom: 24, boxShadow: '0 8px 30px rgba(0,0,0,0.4)' }} />
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.2rem, 9vw, 3.8rem)', letterSpacing: '0.03em', lineHeight: 1.0, marginBottom: 14 }}>
             ENTRE AGORA E<br/><span style={{ color: '#FFD700' }}>COMECE A ECONOMIZAR</span><br/>NOS MELHORES RESTAURANTES
           </h2>
