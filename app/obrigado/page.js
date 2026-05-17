@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-const WPP = 'https://chat.whatsapp.com/IzPtz8dqp5IBlFDjaqG4NT?mode=gi_t'
+const WPP = 'https://chat.whatsapp.com/LAaZ2sFyCUeFkGVFSAfrTk?mode=gi_t'
 
 export default function Obrigado() {
   const [count, setCount] = useState(2)
