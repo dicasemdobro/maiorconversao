@@ -58,7 +58,7 @@ function useScrollTracking() {
 const PARTNERS = [
   { img: '/images/rest-cocobambu.webp',  name: 'Coco Bambu',           cat: 'Frutos do mar' },
   { img: '/images/rest-borelli.webp',    name: 'Borelli',              cat: 'Gelato & Sobremesas' },
-  { img: '/images/rest-bbonca.webp',     name: "BB Onça Burguer's",    cat: 'Hambúrguer artesanal' },
+  { img: '/images/rest-nugrill.webp',    name: 'Nugrill Burger',          cat: 'Hambúrguer artesanal' },
   { img: '/images/rest-harushi.webp',    name: 'Harushi Oriental Food', cat: 'Comida japonesa' },
   { img: '/images/rest-jazz.webp',       name: 'Jazz Cozinha',         cat: 'Gastronomia contemporânea' },
 ]
