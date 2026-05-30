@@ -38,7 +38,7 @@ function CTAButton({ label, text = 'ENTRAR NO GRUPO VIP — GRÁTIS' }) {
 
 /* ─── COUNTDOWN até 02/06 às 10:30 ─── */
 function Countdown() {
-  const target = new Date('2025-06-02T10:30:00-03:00').getTime()
+  const target = new Date('2026-06-02T10:30:00-03:00').getTime()
 
   function calcTime() {
     const diff = Math.max(0, target - Date.now())
@@ -274,8 +274,6 @@ export default function Home() {
             { e: '🍽️', t: '+60 restaurantes parceiros', d: 'Os melhores de Rio Preto, selecionados a dedo' },
             { e: '💰', t: 'Mais de R$3.500 em economia', d: 'Pague 1 prato e leve 2 em cada visita, todo dia' },
             { e: '📱', t: 'App simples e fácil de usar', d: 'Escolha o restaurante, mostre o app, ganhe o prato' },
-            { e: '🔄', t: 'Sem limite de uso', d: 'Use quantas vezes quiser, em qualquer parceiro' },
-            { e: '🆕', t: 'Novos restaurantes toda semana', d: 'A rede cresce e o seu benefício aumenta' },
             { e: '🏆', t: 'Sorteio iPhone 17e', d: 'Exclusivo para quem comprar no pré-lançamento' },
           ].map((b, i) => (
             <div key={i} style={{
