@@ -146,7 +146,7 @@ export default function Home() {
         </h1>
 
         <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '0.92rem', marginBottom: 20, lineHeight: 1.5 }}>
-          +60 restaurantes em Rio Preto. Todo dia. Sem limite.
+          +60 restaurantes em Rio Preto. + de R$3.500,00 em benefícios.
         </p>
 
         <CTAButton label="hero" />
@@ -241,9 +241,11 @@ export default function Home() {
             <p style={{
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: 'clamp(2rem, 8vw, 2.8rem)',
-              color: 'rgba(255,255,255,0.25)',
+              color: 'rgba(255,255,255,0.7)',
               lineHeight: 1, letterSpacing: '0.02em',
               textDecoration: 'line-through',
+              textDecorationColor: '#E33E33',
+              textDecorationThickness: 3,
             }}>R$129,99</p>
             <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', marginTop: 4 }}>pagamento único</p>
           </div>
