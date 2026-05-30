@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const WPP = '/obrigado'
 
@@ -15,29 +15,82 @@ function WppIcon() {
   )
 }
 
-/* ─── THE ONE BUTTON ─── */
 function CTAButton({ label, text = 'ENTRAR NO GRUPO VIP — GRÁTIS' }) {
   function click() {
     fbq('Lead', { content_name: 'Grupo VIP', content_category: label })
     fbq('WhatsApp_Click', { button: label })
   }
   return (
-    <a
-      href={WPP}
-      onClick={click}
-      style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-        background: '#25D366', color: '#fff',
-        fontFamily: 'Inter, sans-serif', fontWeight: 800,
-        fontSize: 'clamp(1rem, 4vw, 1.1rem)',
-        padding: '18px 24px', borderRadius: 100,
-        textDecoration: 'none', width: '100%',
-        animation: 'pulse 2s ease infinite',
-        letterSpacing: '0.01em',
-      }}
-    >
+    <a href={WPP} onClick={click} style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+      background: '#25D366', color: '#fff',
+      fontFamily: 'Inter, sans-serif', fontWeight: 800,
+      fontSize: 'clamp(1rem, 4vw, 1.1rem)',
+      padding: '18px 24px', borderRadius: 100,
+      textDecoration: 'none', width: '100%',
+      animation: 'pulse 2s ease infinite',
+      letterSpacing: '0.01em',
+    }}>
       <WppIcon /> {text}
     </a>
+  )
+}
+
+/* ─── COUNTDOWN até 02/06 às 10:30 ─── */
+function Countdown() {
+  const target = new Date('2025-06-02T10:30:00-03:00').getTime()
+
+  function calcTime() {
+    const diff = Math.max(0, target - Date.now())
+    return {
+      days:    Math.floor(diff / 86400000),
+      hours:   Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000) / 60000),
+      seconds: Math.floor((diff % 60000) / 1000),
+      done:    diff <= 0,
+    }
+  }
+
+  const [t, setT] = useState(calcTime())
+  useEffect(() => {
+    const id = setInterval(() => setT(calcTime()), 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  if (t.done) return (
+    <div style={{ textAlign: 'center', padding: '20px 0' }}>
+      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1.8rem, 7vw, 2.4rem)', color: '#25D366', letterSpacing: '0.03em' }}>
+        🚀 O LANÇAMENTO CHEGOU!
+      </p>
+      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: 6 }}>Garanta agora pelo menor preço do ano</p>
+    </div>
+  )
+
+  const blocks = [
+    { v: String(t.days).padStart(2,'0'),    l: 'dias' },
+    { v: String(t.hours).padStart(2,'0'),   l: 'horas' },
+    { v: String(t.minutes).padStart(2,'0'), l: 'min' },
+    { v: String(t.seconds).padStart(2,'0'), l: 'seg' },
+  ]
+
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 8 }}>
+        {blocks.map((b, i) => (
+          <span key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span style={{
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 10, padding: '10px 12px',
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(1.8rem, 7vw, 2.6rem)',
+              color: '#FFD700', lineHeight: 1, minWidth: 56, textAlign: 'center',
+            }}>{b.v}</span>
+            <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: 4 }}>{b.l}</span>
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -56,11 +109,11 @@ function useScrollTracking() {
 }
 
 const PARTNERS = [
-  { img: '/images/rest-cocobambu.webp',  name: 'Coco Bambu',           cat: 'Frutos do mar' },
-  { img: '/images/rest-borelli.webp',    name: 'Borelli',              cat: 'Gelato & Sobremesas' },
-  { img: '/images/rest-nugrill.webp',    name: 'Nugrill Burger',          cat: 'Hambúrguer artesanal' },
+  { img: '/images/rest-cocobambu.webp',  name: 'Coco Bambu',            cat: 'Frutos do mar' },
+  { img: '/images/rest-borelli.webp',    name: 'Borelli',               cat: 'Gelato & Sobremesas' },
+  { img: '/images/rest-nugrill.webp',    name: 'Nugrill Burger',        cat: 'Hambúrguer artesanal' },
   { img: '/images/rest-harushi.webp',    name: 'Harushi Oriental Food', cat: 'Comida japonesa' },
-  { img: '/images/rest-jazz.webp',       name: 'Jazz Cozinha',         cat: 'Gastronomia contemporânea' },
+  { img: '/images/rest-jazz.webp',       name: 'Jazz Cozinha',          cat: 'Gastronomia contemporânea' },
 ]
 
 export default function Home() {
@@ -70,11 +123,10 @@ export default function Home() {
     <main style={{ maxWidth: 480, margin: '0 auto' }}>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          HERO — acima da dobra, decisão aqui
+          HERO
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section style={{ padding: '36px 20px 32px', background: '#07182a' }}>
 
-        {/* Linha de credibilidade — pequena, acima de tudo */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
           <img src="/images/logo.webp" alt="Dicas em Dobro" style={{ width: 32, height: 32, borderRadius: '50%', background: 'white', padding: 2 }} />
           <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem', fontWeight: 600 }}>Dicas em Dobro · Rio Preto</span>
@@ -82,41 +134,29 @@ export default function Home() {
           <span style={{ color: '#25D366', fontSize: '0.72rem', fontWeight: 700 }}>700+ no grupo</span>
         </div>
 
-        {/* HEADLINE — a única coisa que importa */}
         <h1 style={{
           fontFamily: "'Bebas Neue', sans-serif",
           fontSize: 'clamp(3rem, 13vw, 5rem)',
-          lineHeight: 0.95,
-          letterSpacing: '0.01em',
-          color: 'white',
-          textAlign: 'center',
-          marginBottom: 12,
+          lineHeight: 0.95, letterSpacing: '0.01em',
+          color: 'white', textAlign: 'center', marginBottom: 12,
         }}>
           COMPRE 1<br/>
           <span style={{ color: '#FFD700' }}>GANHE OUTRO</span><br/>
           DE GRAÇA
         </h1>
 
-        {/* Sub — uma linha, concreto */}
         <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '0.92rem', marginBottom: 20, lineHeight: 1.5 }}>
           +60 restaurantes em Rio Preto. Todo dia. Sem limite.
         </p>
 
-        {/* CTA — dominante, sem competição */}
         <CTAButton label="hero" />
         <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', marginTop: 8 }}>
           Gratuito · Sem spam · Saia quando quiser
         </p>
 
-        {/* Foto — prova visual, depois do botão */}
         <div style={{ marginTop: 20, borderRadius: 16, overflow: 'hidden', position: 'relative', boxShadow: '0 12px 40px rgba(0,0,0,0.5)' }}>
-          <img
-            src="/images/hero.webp"
-            alt="Experiências gastronômicas em Rio Preto"
-            style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 360 }}
-          />
+          <img src="/images/hero.webp" alt="Experiências gastronômicas em Rio Preto" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 360 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(7,24,42,0.6) 0%, transparent 40%)' }} />
-          {/* iPhone — aparece dentro da foto, discreto mas presente */}
           <div style={{
             position: 'absolute', bottom: 14, left: 14, right: 14,
             display: 'flex', alignItems: 'center', gap: 10,
@@ -136,8 +176,132 @@ export default function Home() {
 
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          PARCEIROS — quem ainda não clicou
-          precisa ver que é real
+          COUNTDOWN + PREÇO — urgência real
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <section style={{ padding: '40px 20px', background: '#0a1f35', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+
+        {/* Badge lançamento */}
+        <div style={{ textAlign: 'center', marginBottom: 20 }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'rgba(227,62,51,0.15)', border: '1px solid rgba(227,62,51,0.4)',
+            borderRadius: 100, padding: '6px 16px',
+            color: '#ff7a72', fontSize: '0.72rem', fontWeight: 700,
+            letterSpacing: '0.1em', textTransform: 'uppercase',
+            animation: 'blink 2s ease infinite',
+          }}>
+            🚀 LANÇAMENTO — 02 DE JUNHO
+          </span>
+        </div>
+
+        <h2 style={{
+          fontFamily: "'Bebas Neue', sans-serif",
+          fontSize: 'clamp(1.8rem, 7vw, 2.8rem)',
+          letterSpacing: '0.02em', textAlign: 'center',
+          lineHeight: 1.05, marginBottom: 8,
+        }}>
+          NO DIA DO LANÇAMENTO:<br/>
+          <span style={{ color: '#FFD700' }}>MENOR PREÇO DO ANO</span>
+        </h2>
+
+        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem', marginBottom: 24, lineHeight: 1.5 }}>
+          Depois do dia 02/06 o valor sobe gradativamente.<br/>Quem entrar primeiro paga menos.
+        </p>
+
+        {/* Countdown */}
+        <Countdown />
+
+        {/* Preços */}
+        <div style={{ display: 'flex', gap: 10, marginTop: 24, marginBottom: 24 }}>
+          {/* Preço lançamento */}
+          <div style={{
+            flex: 1, borderRadius: 14, padding: '18px 14px', textAlign: 'center',
+            background: 'linear-gradient(135deg, rgba(37,211,102,0.12), rgba(37,211,102,0.05))',
+            border: '1.5px solid rgba(37,211,102,0.4)',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)',
+              background: '#25D366', borderRadius: 100, padding: '2px 12px',
+              fontSize: '0.6rem', fontWeight: 800, color: 'white', letterSpacing: '0.08em',
+              textTransform: 'uppercase', whiteSpace: 'nowrap',
+            }}>🔥 Só no lançamento</div>
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', marginBottom: 4, marginTop: 8 }}>Dia 02/06</p>
+            <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2rem, 8vw, 2.8rem)', color: '#25D366', lineHeight: 1, letterSpacing: '0.02em' }}>R$89,90</p>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', marginTop: 4 }}>pagamento único</p>
+          </div>
+
+          {/* Preço normal */}
+          <div style={{
+            flex: 1, borderRadius: 14, padding: '18px 14px', textAlign: 'center',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.07)',
+          }}>
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', marginBottom: 4 }}>Depois sobe para</p>
+            <p style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(2rem, 8vw, 2.8rem)',
+              color: 'rgba(255,255,255,0.25)',
+              lineHeight: 1, letterSpacing: '0.02em',
+              textDecoration: 'line-through',
+            }}>R$129,99</p>
+            <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', marginTop: 4 }}>pagamento único</p>
+          </div>
+        </div>
+
+        <CTAButton label="preco" text="GARANTIR MEU ACESSO VIP" />
+        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', marginTop: 8 }}>
+          Entre no grupo VIP e receba o link de compra no dia 02/06
+        </p>
+
+      </section>
+
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          BENEFÍCIOS DO APP
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <section style={{ padding: '40px 20px', background: '#07182a' }}>
+
+        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 8 }}>O QUE VOCÊ LEVA</p>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1.8rem, 7vw, 2.8rem)', letterSpacing: '0.02em', lineHeight: 1.05 }}>
+            Tudo que o app<br/><span style={{ color: '#FFD700' }}>te dá</span>
+          </h2>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {[
+            { e: '🍽️', t: '+60 restaurantes parceiros', d: 'Os melhores de Rio Preto, selecionados a dedo' },
+            { e: '💰', t: 'Mais de R$3.500 em economia', d: 'Pague 1 prato e leve 2 em cada visita, todo dia' },
+            { e: '📱', t: 'App simples e fácil de usar', d: 'Escolha o restaurante, mostre o app, ganhe o prato' },
+            { e: '🔄', t: 'Sem limite de uso', d: 'Use quantas vezes quiser, em qualquer parceiro' },
+            { e: '🆕', t: 'Novos restaurantes toda semana', d: 'A rede cresce e o seu benefício aumenta' },
+            { e: '🏆', t: 'Sorteio iPhone 17e', d: 'Exclusivo para quem comprar no pré-lançamento' },
+          ].map((b, i) => (
+            <div key={i} style={{
+              display: 'flex', gap: 14, alignItems: 'flex-start',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: 14, padding: '14px 16px',
+            }}>
+              <span style={{ fontSize: '1.5rem', flexShrink: 0 }}>{b.e}</span>
+              <div>
+                <p style={{ fontWeight: 700, fontSize: '0.92rem', color: 'white', marginBottom: 3 }}>{b.t}</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.78rem', lineHeight: 1.45 }}>{b.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 24 }}>
+          <CTAButton label="beneficios" />
+        </div>
+
+      </section>
+
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          PARCEIROS
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section style={{ padding: '40px 0 32px', background: '#061220' }}>
 
@@ -148,7 +312,6 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Carrossel — arraste */}
         <div style={{ display: 'flex', overflowX: 'auto', gap: 10, paddingLeft: 20, paddingRight: 20, scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
           {PARTNERS.map((r, i) => (
             <div key={i} style={{ flex: '0 0 68vw', maxWidth: 260, scrollSnapAlign: 'start', borderRadius: 14, overflow: 'hidden', position: 'relative', boxShadow: '0 4px 20px rgba(0,0,0,0.4)' }}>
@@ -163,7 +326,6 @@ export default function Home() {
               </div>
             </div>
           ))}
-          {/* Mais parceiros */}
           <div style={{ flex: '0 0 52vw', maxWidth: 200, scrollSnapAlign: 'start', borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20, textAlign: 'center', minHeight: 160 }}>
             <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '1.4rem', color: '#FFD700', lineHeight: 1.1, marginBottom: 6 }}>+55<br/>outros</p>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem' }}>Novos toda semana</p>
@@ -179,7 +341,7 @@ export default function Home() {
 
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          SORTEIO — FOMO máximo
+          SORTEIO
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section id="sorteio" style={{ padding: '40px 20px 36px', background: '#07182a' }}>
 
@@ -191,7 +353,7 @@ export default function Home() {
             VOCÊ CONCORRE<br/>A UM <span style={{ color: '#FFD700' }}>iPHONE 17e</span>
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', lineHeight: 1.55 }}>
-            Quem estiver no Grupo VIP recebe as instruções do sorteio nos próximos dias.
+            Quem comprar no pré-lançamento concorre automaticamente. Instruções chegam dentro do grupo.
           </p>
         </div>
 
@@ -209,11 +371,10 @@ export default function Home() {
 
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          CTA FINAL — última chance
+          CTA FINAL
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section style={{ padding: '40px 20px 48px', background: '#061220' }}>
 
-        {/* Banner identidade visual */}
         <div style={{ borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
           <img src="/images/banner-final.webp" alt="Dicas em Dobro" style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 160 }} loading="lazy" />
         </div>
