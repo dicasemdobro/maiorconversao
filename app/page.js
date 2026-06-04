@@ -16,6 +16,8 @@ export default function Page() {
 
       <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} priority className={styles.banner} />
 
+      <div className={styles.badgeVermelho}>⚠️ Últimas unidades do primeiro lote disponíveis</div>
+
       <div className={styles.btns}>
         <a href="/baixar/ios" className={styles.btn}>
           <span className={styles.bicon}>🍎</span>
@@ -26,6 +28,9 @@ export default function Page() {
           <div className={styles.btxt}><span className={styles.bsm}>Disponível no</span><span className={styles.bbg}>Google Play</span></div>
         </a>
       </div>
+
+      <div className={styles.badgeVerde}>🎁 Concorra a um iPhone 17e</div>
+
       <p className={styles.note}>Download gratuito · iPhone e Android</p>
     </div>
   )
