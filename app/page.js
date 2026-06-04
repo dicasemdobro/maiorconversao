@@ -1,10 +1,28 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './page.module.css'
 
 export default function Page() {
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const iframeRef = useRef(null)
+
+  useEffect(() => {
+    if (!videoLoaded) return
+
+    // Carrega a API do Vimeo e força o unmute após o clique do usuário
+    const script = document.createElement('script')
+    script.src = 'https://player.vimeo.com/api/player.js'
+    script.onload = () => {
+      const player = new window.Vimeo.Player(iframeRef.current)
+      player.ready().then(() => {
+        player.setVolume(1)
+        player.setMuted(false)
+        player.play()
+      })
+    }
+    document.head.appendChild(script)
+  }, [videoLoaded])
 
   return (
     <div className={styles.card}>
@@ -33,7 +51,8 @@ export default function Page() {
           </div>
         ) : (
           <iframe
-            src="https://player.vimeo.com/video/1196995723?badge=0&autoplay=1&autopause=0&muted=0"
+            ref={iframeRef}
+            src="https://player.vimeo.com/video/1196995723?badge=0&autoplay=1&muted=0&autopause=0"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
