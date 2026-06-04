@@ -1,8 +1,11 @@
 'use client'
 import Image from 'next/image'
+import { useState } from 'react'
 import styles from './page.module.css'
 
 export default function Page() {
+  const [videoLoaded, setVideoLoaded] = useState(false)
+
   return (
     <div className={styles.card}>
       <Image src="/logo.webp" alt="Dicas em Dobro" width={72} height={72} priority className={styles.logo} />
@@ -14,7 +17,24 @@ export default function Page() {
 
       <p className={styles.proof}>Mais de <strong>500 Rio Pretenses</strong> já aproveitando<br />benefícios em +60 restaurantes.</p>
 
-      <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} priority className={styles.banner} />
+      {/* Vídeo no topo */}
+      <div className={styles.videoWrap}>
+        {!videoLoaded && (
+          <div className={styles.videoThumb} onClick={() => setVideoLoaded(true)}>
+            <div className={styles.playBtn}>▶</div>
+            <p className={styles.videoHint}>Veja como funciona na prática</p>
+          </div>
+        )}
+        {videoLoaded && (
+          <iframe
+            src="https://player.vimeo.com/video/1196995723?badge=0&autoplay=1&autopause=0"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className={styles.videoFrame}
+          />
+        )}
+      </div>
 
       <div className={styles.badgeVermelho}>⚠️ Últimas unidades do primeiro lote disponíveis</div>
 
@@ -30,6 +50,9 @@ export default function Page() {
       </div>
 
       <div className={styles.badgeVerde}>🎁 Concorra a um iPhone 17e</div>
+
+      {/* Banner abaixo dos botões */}
+      <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} className={styles.banner} />
 
       <p className={styles.note}>Download gratuito · iPhone e Android</p>
     </div>
