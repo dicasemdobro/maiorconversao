@@ -17,17 +17,23 @@ export default function Page() {
 
       <p className={styles.proof}>Mais de <strong>500 Rio Pretenses</strong> já aproveitando<br />benefícios em +60 restaurantes.</p>
 
-      {/* Vídeo no topo */}
+      {/* Vídeo com thumbnail */}
       <div className={styles.videoWrap}>
-        {!videoLoaded && (
+        {!videoLoaded ? (
           <div className={styles.videoThumb} onClick={() => setVideoLoaded(true)}>
-            <div className={styles.playBtn}>▶</div>
-            <p className={styles.videoHint}>Veja como funciona na prática</p>
+            <Image
+              src="/thumb.webp"
+              alt="Como funciona o Dicas em Dobro"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+            <div className={styles.playOverlay}>
+              <div className={styles.playBtn}>▶</div>
+            </div>
           </div>
-        )}
-        {videoLoaded && (
+        ) : (
           <iframe
-            src="https://player.vimeo.com/video/1196995723?badge=0&autoplay=1&autopause=0"
+            src="https://player.vimeo.com/video/1196995723?badge=0&autoplay=1&autopause=0&muted=0"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
@@ -51,7 +57,6 @@ export default function Page() {
 
       <div className={styles.badgeVerde}>🎁 Concorra a um iPhone 17e</div>
 
-      {/* Banner abaixo dos botões */}
       <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} className={styles.banner} />
 
       <p className={styles.note}>Download gratuito · iPhone e Android</p>
