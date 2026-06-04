@@ -6,9 +6,32 @@ const PIXEL_ID = '1127780420422737'
 
 export default function BaixarAndroid() {
   useEffect(() => {
+    const redireciona = () => { window.location.href = DEST }
+
+    const fallback = setTimeout(redireciona, 2000)
+
+    function dispara() {
+      try {
+        fbq('track', 'InitiateCheckout',
+          { content_name: 'android-redirect' },
+          { eventID: 'android-' + Date.now() }
+        )
+        fbq('onEvent', 'InitiateCheckout', () => {
+          clearTimeout(fallback)
+          redireciona()
+        })
+        setTimeout(() => {
+          clearTimeout(fallback)
+          redireciona()
+        }, 1000)
+      } catch (e) {
+        clearTimeout(fallback)
+        redireciona()
+      }
+    }
+
     if (typeof fbq !== 'undefined') {
-      try { fbq('track', 'Lead', { content_name: 'android-redirect' }) } catch (e) {}
-      setTimeout(() => { window.location.href = DEST }, 500)
+      dispara()
     } else {
       const script = document.createElement('script')
       script.src = 'https://connect.facebook.net/en_US/fbevents.js'
@@ -16,11 +39,13 @@ export default function BaixarAndroid() {
       script.onload = () => {
         fbq('init', PIXEL_ID)
         fbq('track', 'PageView')
-        fbq('track', 'Lead', { content_name: 'android-redirect' })
-        setTimeout(() => { window.location.href = DEST }, 500)
+        dispara()
+      }
+      script.onerror = () => {
+        clearTimeout(fallback)
+        redireciona()
       }
       document.head.appendChild(script)
-      setTimeout(() => { window.location.href = DEST }, 1500)
     }
   }, [])
 
