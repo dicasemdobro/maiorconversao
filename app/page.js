@@ -6,18 +6,15 @@ export default function Page() {
   return (
     <div className={styles.card}>
       <Image src="/logo.webp" alt="Dicas em Dobro" width={72} height={72} priority className={styles.logo} />
-      <div className={styles.avail}><span className={styles.dot} />Já disponível para download</div>
-      <p className={styles.proof}>Mais de <strong>500 Rio Pretenses</strong> já aproveitando<br />benefícios em +60 restaurantes.</p>
-      <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} priority className={styles.banner} />
 
-      {/* Urgência */}
-      <div className={styles.urgencia}>
-        <span className={styles.urgenciaBadge}>⏳ ENCERRA DIA 7</span>
-        <p className={styles.urgenciaTexto}>
-          <strong>R$99,90</strong> + concorra a um <strong>iPhone 17e</strong>.<br/>
-          Após o dia 7, essa oferta não volta.
-        </p>
+      <div className={styles.avail}>
+        <span className={styles.dot} />
+        Primeiro lote disponível — R$99,90. Pode subir a qualquer momento.
       </div>
+
+      <p className={styles.proof}>Mais de <strong>500 Rio Pretenses</strong> já aproveitando<br />benefícios em +60 restaurantes.</p>
+
+      <Image src="/banner.webp" alt="Compre 1 prato ganhe outro de graça" width={480} height={270} priority className={styles.banner} />
 
       <div className={styles.btns}>
         <a href="/baixar/ios" className={styles.btn}>
